@@ -1,24 +1,22 @@
+var n = 0;
+var c = 2;
+
 function setup() {
-  createCanvas(800, 600);
-  colorMode(HSB);
-  background(55);
-  pixelDensity(1);
+  createCanvas(800, 800);
+  background(0);
 }
 
 function draw() {
-  loadPixels();
 
-  for (let x = 0; x <= width; x++ ) {
-    for (let y = 0; y <= height; y++) {
-      var index = (x + y * width) * 4;
-      pixels[index + 0] = x;
-      pixels[index + 1] = random(255);
-      pixels[index + 2] = y;
-      pixels[index + 3] = 255;
-    }
-  }
-      updatePixels();
+  var angle = n * 137.3;
+  var radius = c * sqrt(n);
 
+  var x = radius * cos(angle) + width/2;
+  var y = radius * sin(angle) + height/2;
+
+  fill(255);
+  ellipse(x,y,8,8);
+  n++
 }
 
 function keyPressed() {
