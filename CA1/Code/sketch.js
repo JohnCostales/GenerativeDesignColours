@@ -1,57 +1,56 @@
-var n = 0; // Ordering number
-var c = 8; // Scaling parameter
-var angle = 0;
 var divergenceAngle = 137.5;
+var c = 10;
 var shapeSize = 8;
+var x = 0;
+var n = 0;
 
 function setup() {
-  createCanvas(1240, 1748);
-  angleMode(DEGREES); // Change angles to degrees
-  colorMode(HSB, 360, 100, 100, 100);
-  noStroke();
-  background(0);
+    createCanvas(1240, 1748);
+    angleMode(DEGREES); // Change angles to degrees
+    colorMode(HSB, 360, 100, 100, 100);
+    noStroke();
+    background(0);
 }
 
 function draw() {
-  angle = n * divergenceAngle;
-  var shapeFill = color(n % 255, 255, 255);
+    x = 0;
+    var saturation = 255;
+    var brightness = 255;
+    for (n = 0; n < width; n++) {
+        var angle = n * divergenceAngle;
+        //        var shapeFill = color((angle - r) % 255, saturation, brightness);
+        var shapeFill = color(n % 255, saturation, brightness);
 
-  phyllotaxis();
+        //Formula
+        var r = c * sqrt(n);
+        //Radius against an angle
+        var x = r * cos(angle) + width / 1.5;
+        var y = r * sin(angle) + height / 1.5;
 
-  // Draw shapes
-  fill(shapeFill);
-  ellipse(x ,y ,shapeSize ,shapeSize);
+        // Draw shapes
+        fill(shapeFill);
+        ellipse(x, y, shapeSize, shapeSize);
 
-  // if every sqrt(n) is a natural number. grow scaling.
-  //Change colour alpha?
-  if (Number.isInteger(sqrt(n)) === true) {
-    // shapeSize++;
-    // c+=1;
-    console.log("N: " + n);
-  }
+        // if every sqrt(n) is a natural number. grow scaling.
+        //Change colour alpha?
+        if (Number.isInteger(sqrt(n)) === true) {
+            shapeSize++;
+            c += 1;
+        }
+        console.log(n);
+    }
 
-  n++;
-  // noLoop();
-}
-
-function phyllotaxis() {
-  var r = c * sqrt(n);
-
-  //Radius against an angle
-  x = r * cos(angle) + width/2;
-  y = r * sin(angle) + height/2;
-  console.log("Radius: " + r);
+    noLoop();
 }
 
 function keyPressed() {
-        if(key=='s' || key=='S') saveCanvas(gd.timestamp() + '_MouseX' + mouseX + '_MouseY' + mouseY,'png');
+    if (key == 's' || key == 'S') saveCanvas(gd.timestamp() + '_MouseX' + mouseX + '_MouseY' + mouseY, 'png');
 
-        switch (key) {
-          case '1':
-            // Reset canvas variables and change
+    switch (key) {
+        case '1': // Reset canvas variables and change
             setup();
             break;
-          default:
+        default:
 
-        }
     }
+}
