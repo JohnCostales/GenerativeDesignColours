@@ -7,19 +7,19 @@ var n = 0;
 function setup() {
     createCanvas(1240, 1748);
     angleMode(DEGREES); // Change angles to degrees
-    colorMode(HSB, 360, 100, 100, 100);
+    colorMode(HSB);
     noStroke();
     background(0);
 }
 
 function draw() {
     x = 0;
-    var saturation = 255;
-    var brightness = 255;
+    var saturation = 100;
+    var brightness = 100;
     for (n = 0; n < width; n++) {
         var angle = n * divergenceAngle;
         //        var shapeFill = color((angle - r) % 255, saturation, brightness);
-        var shapeFill = color(n % 255, saturation, brightness);
+        var shapeFill = color(n % 150, saturation, brightness);
 
         //Formula
         var r = c * sqrt(n);
@@ -35,13 +35,16 @@ function draw() {
         //Change colour alpha?
         if (Number.isInteger(sqrt(n)) === true) {
             shapeSize++;
+            brightness -= 5;
             c += 1;
         }
-        console.log(n);
+//        console.log(n);
     }
 
     noLoop();
 }
+
+
 
 function keyPressed() {
     if (key == 's' || key == 'S') saveCanvas(gd.timestamp() + '_MouseX' + mouseX + '_MouseY' + mouseY, 'png');
