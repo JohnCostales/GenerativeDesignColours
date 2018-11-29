@@ -18,7 +18,7 @@ function draw() {
     var brightness = 100;
     for (n = 0; n < width; n++) {
         var angle = n * divergenceAngle;
-        //        var shapeFill = color((angle - r) % 255, saturation, brightness);
+//        var shapeFill = color((angle - r) % 150, saturation, brightness);
         var shapeFill = color(n % 150, saturation, brightness);
 
         //Formula
@@ -34,11 +34,13 @@ function draw() {
         // if every sqrt(n) is a natural number. grow scaling.
         //Change colour alpha?
         if (Number.isInteger(sqrt(n)) === true) {
-            shapeSize++;
-            brightness -= 5;
+            shapeSize+=2;
             c += 1;
         }
-//        console.log(n);
+        if (Number.isInteger(Math.pow(n, 3)) === true){
+            brightness -= 0.15;
+        }
+//        console.log(y);
     }
 
     noLoop();
